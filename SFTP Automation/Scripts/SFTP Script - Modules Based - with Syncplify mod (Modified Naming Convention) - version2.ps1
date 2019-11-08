@@ -273,7 +273,7 @@ pause
                     Write-Host "Synclify details saved in C:\account_details.txt"
                 }
 
-            catch{   $Ev++
+            catch{
                     Write-Host -BackgroundColor Red "`n`nThe Saved file is open. Please make sure the file is closed" 
                 }
 
@@ -466,14 +466,20 @@ function read_client
                 $count=$client_accounts.Count
                 Write-Host -BackgroundColor DarkGreen $count "Results Found - For Non KC Accounts"
                 $Newac = 1
+               
                 getad_accounts
                 get_location
                 get_ticket_no
                 get_owner_id
+                Write-Verbose "Setting New SFTP Account"
                 set_newaccount
+                Write-Verbose "Generating Password"
                 generate_password
+                Write-Verbose "Creating new user account on AD"
                 create_user
+                Write-Verbose "Creating new group on AD"
                 create_group
+                Write-Verbose "Creating folder on file share"
                 create_folder
                 syncplify
                 send_email
